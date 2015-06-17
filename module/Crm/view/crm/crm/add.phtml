@@ -1,0 +1,18 @@
+<?php
+$title = 'Add new client';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <?php
+ $form->setAttribute('action', $this->url('crm', array('action' => 'add')));
+ $form->prepare();
+
+ echo $this->form()->openTag($form);
+ echo $this->formHidden($form->get('id'));
+ echo $this->formRow($form->get('nom'));?><br><br><?php
+ echo $this->formRow($form->get('prenom'));?><br><br><?php
+ echo $this->formRow($form->get('email'));?><br><br><?php
+ echo $this->formRow($form->get('societe'));?><br><br><?php
+ echo $this->formRow($form->get('telephone'));?><br><br><?php
+ echo $this->formSubmit($form->get('submit'));
+ echo $this->form()->closeTag();

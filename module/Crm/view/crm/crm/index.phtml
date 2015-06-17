@@ -1,0 +1,39 @@
+<?php
+$title = 'CRM';
+ $this->headTitle($title);
+ ?>
+ 
+ <a style="float: right;" href="<?php echo $this->url('auth', array('action'=>'logOut'));?>" type="button" class="button" > 
+ 		<?php echo $this->translate('Deconexion'); ?><br>
+ 	</a> 
+ 	
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <p>
+     <a href="<?php  echo $this->url('crm', array('action'=>'add'));?>">Add new client</a>
+ </p>
+
+ <table class="table">
+ <tr>
+     <th>Nom</th>
+     <th>prenom</th>
+    <!-- <th>email</th>
+     <th>societe</th>
+     <th>telephone</th>
+     <th>&nbsp;</th>-->
+ </tr>
+ <?php foreach ($clients as $client) : ?>
+ <tr>
+     <td><?php echo $this->escapeHtml($client->nom);?></td>
+     <td><?php echo $this->escapeHtml($client->prenom);?></td>
+    <!-- <td><?php echo $this->escapeHtml($client->email);?></td>
+     <td><?php echo $this->escapeHtml($client->societe);?></td>
+     <td><?php echo $this->escapeHtml($client->telephone);?></td>
+     <td>
+         <a href="<?php echo $this->url('crm',
+             array('action'=>'edit', 'id' => $client->id));?>">Edit</a>
+         <a href="<?php echo $this->url('crm',
+             array('action'=>'delete', 'id' => $client->id));?>">Delete</a>
+     </td> -->
+ </tr>
+ <?php endforeach; ?>
+ </table>

@@ -1,0 +1,48 @@
+<?php
+	$form = $this->form;
+	$form->setAttribute('action', $this->url('auth', array('action'=>'index')));
+	$form->prepare();
+	
+	
+?>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+		<?php echo $this->form()->openTag($form); ?>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title">
+				<center> Authentification </center>
+			</h4>
+		</div>
+		<div class="modal-body">
+			<?php echo $this->flashMessenger()->render('error', array('alert', 'alert-danger')); ?>
+			<p>
+				<?php echo $this->formRow($form->get('login')); ?> <br><br>
+				<?php echo $this->formRow($form->get('password')); ?>
+				<!-- <div class="modal-footer">
+					
+				</div>		-->
+			</p>
+		</div>
+		<div class="modal-footer">
+		
+		<!--  <a href="<?php echo $this->url('auth', array('action'=>'inscription'));?>">Inscri</a>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Inscription</button> -->
+			<button type="submit" name="connexion" class="btn btn-primary">S'identifie</button>
+		</div>
+		<?php echo $this->form()->closeTag($form); ?>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<?php // view helper
+    if ($user = $this->identity()) {
+        echo 'vous etes connecter autant que ' . $this->escapeHtml($user->login);
+?>		
+ | <a href=""><?php echo $this->translate('Logout'); ?></a> 
+<?php
+    } else {
+        echo '  ';
+    }
+?>
