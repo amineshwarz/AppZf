@@ -1,13 +1,38 @@
-<?php
- // module/Album/view/album/album/index.phtml:
 
- $title = 'My albums';
- $this->Index($title);
+
+<?php 
+ $title = 'Mes Albums';
+ $this->headTitle($title);
  ?>
- <h1><?php echo $this->escapeHtml($title); ?></h1>
- <p>
-     <a href="<?php echo $this->url('album', array('action'=>'add'));?>">Add new album</a>
- </p>
+
+ <?php 
+   		 if ($user = $this->identity()) {
+       	 echo '<h5>Vous etes connecter autant que : ' . $this->escapeHtml($user->login);
+	?>		
+ | 	<a style="float: right;" href="<?php echo $this->url('auth', array('action'=>'logOut'));?>" type="button" class="button" > 
+ 		<?php echo $this->translate('Deconexion'); ?><br>
+ 	</a> 
+	<?php
+   	 } else { ?>
+   	 
+   	 
+    <h5>Vous etes pas connecter | 
+   		<a style="float: right;" href="<?php echo $this->url('auth', array('action'=>'index'));?>" type="button" class="button" >
+   			<?php echo $this->translate('connexion'); ?>
+   		</a>
+   	
+   	</h5>
+	<?php    
+
+		}
+	?>
+  <h1><?php echo $this->escapeHtml($title); ?></h1><br><br>
+ 	<?php echo $this->flashMessenger()->render('success', array('alert', 'alert-success')); ?>
+ 	
+	<center> <p><br>
+    	 <a href="<?php echo $this->url('album', array('action'=>'add'));?>" type="button" class="button">
+    	 Ajouter un nouveau album</a><br>
+ 	</p><center>
 
  <table class="table">
  <tr>
@@ -17,13 +42,20 @@
  </tr>
  <?php foreach ($albums as $album) : ?>
  <tr>
-     <td><?php echo $this->escapeHtml($album->title);?></td>
-     <td><?php echo $this->escapeHtml($album->artist);?></td>
+     
+     <td>
+     	<a href="<?php echo $this->url('album', array('action'=>'affichemusic', 'id' => $album->id));?>"> 
+     		<?php echo $this->escapeHtml($album->title);?>
+     	</a>
+     </td>
+     <td>
+     	<?php echo $this->escapeHtml($album->artist);?>
+     </td>
      <td>
          <a href="<?php echo $this->url('album',
-             array('action'=>'edit', 'id' => $album->id));?>">Edit</a>
+             array('action'=>'edit', 'id' => $album->id));?>"type="button" class="button">Modifier</a>
          <a href="<?php echo $this->url('album',
-             array('action'=>'delete', 'id' => $album->id));?>">Delete</a>
+             array('action'=>'delete', 'id' => $album->id));?>"type="button" class="button">Supprimer</a>
      </td>
  </tr>
  <?php endforeach; ?>

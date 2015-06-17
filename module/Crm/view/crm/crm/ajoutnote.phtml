@@ -1,0 +1,15 @@
+<?php
+ $title = 'Ajouter une note a un Client';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <?php
+ $form->setAttribute('action', $this->url('crm', array('action' => 'ajoutnote','id_note'=> $this->id,)));
+ $form->prepare();
+
+ echo $this->form()->openTag($form);
+ echo $this->formHidden($form->get('id_note'));
+ echo $this->formRow($form->get('id_client'));
+ echo $this->formSubmit($form->get('submit'));
+ echo $this->form()->closeTag();
+ ?>

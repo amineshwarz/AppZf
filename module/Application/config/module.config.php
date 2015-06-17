@@ -13,13 +13,14 @@ return array(
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/',
+        						'route' => '/',        						
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'action'     => 'index',
-                    ),
+        								'controller' => 'Crm\Controller\Auth',
+        								'action' => 'index',
+        						),
                 ),
             ),
+        		
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them

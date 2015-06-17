@@ -14,7 +14,7 @@
 return array(
     'db' => array(
          'driver'         => 'Pdo',
-         'dsn'            => 'mysql:dbname=AlbumDB;host=localhost',
+         'dsn'            => 'mysql:dbname=crm;host=127.9.15.130:3306 ',
          'driver_options' => array(
              PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
          ),

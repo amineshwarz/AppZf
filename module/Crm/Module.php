@@ -46,6 +46,21 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 							$resultSetPrototype->setArrayObjectPrototype(new Client());
 							return new TableGateway('client', $dbAdapter, null, $resultSetPrototype);
 						},
+						'NoteTableGateway' => function ($sm) {
+							$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+							$resultSetPrototype = new ResultSet();
+							$resultSetPrototype->setArrayObjectPrototype(new Note());
+							return new TableGateway('note', $dbAdapter, null, $resultSetPrototype);
+						},
+						'AuthenticationService' => function ($sm) {
+							$auth = new AuthenticationService;
+							$auth->setStorage(new Session());
+							return $auth;
+						},
+						'adapterService' => function($sm){
+							$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+							return $dbAdapter;
+						},
 				),
 		);
 	}

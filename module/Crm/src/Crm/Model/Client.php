@@ -17,11 +17,11 @@ class Client
 
 	public function exchangeArray($data)
 	{
-		$this->id     = (!empty($data['id'])) ? $data['id'] : null;
-		$this->nom = (!empty($data['nom'])) ? $data['nom'] : null;
-		$this->prenom  = (!empty($data['prenom'])) ? $data['prenom'] : null;
-		$this->email  = (!empty($data['email'])) ? $data['email'] : null;
-		$this->societe  = (!empty($data['societe'])) ? $data['societe'] : null;
+		$this->id     		= (!empty($data['id'])) ? $data['id'] : null;
+		$this->nom 				= (!empty($data['nom'])) ? $data['nom'] : null;
+		$this->prenom  		= (!empty($data['prenom'])) ? $data['prenom'] : null;
+		$this->email  		= (!empty($data['email'])) ? $data['email'] : null;
+		$this->societe  	= (!empty($data['societe'])) ? $data['societe'] : null;
 		$this->telephone  = (!empty($data['telephone'])) ? $data['telephone'] : null;
 	}
 	
@@ -128,12 +128,12 @@ class Client
 					'name'     => 'telephone',
 					'required' => true,
 					'filters'  => array(
-							array('name' => 'StripTags'),
-							array('name' => 'StringTrim'),
+							array('name' => 'int'),
+							
 					),
 					'validators' => array(
 							array(
-									'name'    => 'StringLength',
+									'name'    => 'int',
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
@@ -141,8 +141,7 @@ class Client
 									),
 							),
 					),
-			));
-	
+			));	
 			$this->inputFilter = $inputFilter;
 		}
 	

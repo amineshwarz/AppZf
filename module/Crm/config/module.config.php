@@ -3,6 +3,7 @@ return array(
 		'controllers' => array(
 				'invokables' => array(
 						'Crm\Controller\Crm' => 'Crm\Controller\CrmController',
+						'Crm\Controller\Auth' => 'Crm\Controller\AuthController',
 				),
 		),
 		
@@ -36,6 +37,21 @@ return array(
 										),
 								),
 						),
+						'afficheclient' => array(
+								'type'    => 'segment',
+								'options' => array(
+										'route'    => '/afficheclient[/:action][/:id]',
+										'constraints' => array(
+												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+												'id'     => '[0-9]+',
+										),
+										'defaults' => array(
+												'controller' => 'Crm\Controller\Crm',
+												'action'     => 'afficheclient',
+										),
+								),
+						),
+						
 				),
 		),
 		

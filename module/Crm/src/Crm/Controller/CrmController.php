@@ -3,8 +3,15 @@ namespace Crm\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Crm\Model\client;       
-use Crm\Form\CrmForm;       
+use Crm\Model\Client;       
+use Crm\Form\CrmForm;  
+use zend\Db\sql\Sql;
+use Zend\Db\TableGateway\TableGateway; 
+use Crm\Form\NoteForm;
+use Crm\Model\Note;
+
+
+  
 
 class CrmController extends AbstractActionController
 {
@@ -13,7 +20,9 @@ class CrmController extends AbstractActionController
 	
 	public function indexAction()
 	{
-		return new ViewModel(array( 'clients' => $this->getClientTable()->fetchAll(), ));
+		return new ViewModel(array(
+				'clients' => $this->getClientTable()->fetchAll(),
+		));
 	}
 
 	public function addAction()
@@ -23,7 +32,7 @@ class CrmController extends AbstractActionController
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
-			$client = new client();
+			$client = new Client();
 			$form->setInputFilter($client->getInputFilter());
 			$form->setData($request->getPost());
 		
@@ -71,7 +80,7 @@ class CrmController extends AbstractActionController
 				$this->getClientTable()->saveClient($client);
 		
 				// Redirect to list of albums
-				return $this->redirect()->toRoute('crm');
+				return $this->redirect()->toRoute('afficheclient');
 			}
 		}
 		
@@ -79,6 +88,38 @@ class CrmController extends AbstractActionController
 				'id' => $id,
 				'form' => $form,
 		);
+	}
+	
+	public function afficheclientAction()
+	{
+		
+			// récupérer l'id de la chanson
+			$id = (int) $this->params()->fromRoute('id', 0);
+			if (!$id)
+			{
+				return $this->redirect()->toRoute('crm', array(
+						'action' => 'index'));
+			}
+		try {
+			
+			$client = $this->getClientTable()->getClient($id);
+		}
+		catch (\Exception $ex) {
+			return $this->redirect()->toRoute('crm', array(
+					'action' => 'index'
+			));
+		}
+		
+		
+			return array(
+					'id' => $id,
+					'nom' => $client->nom,
+					'prenom' => $client->prenom,
+					'email' => $client->email,
+					'societe' => $client->societe,
+					'telephone' => $client->telephone,
+			);
+		
 	}
 
 	public function deleteAction()
@@ -106,6 +147,28 @@ class CrmController extends AbstractActionController
 					'id'    => $id,
 					'crm' => $this->getClientTable()->getClient($id)
 			);
+	}
+	
+	public function ajoutenoteAction()
+	{
+		$form = new NoteForm();
+		$form->get('submit')->setValue('Add');
+	
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$note = new Note();
+			$form->setInputFilter($note->getInputFilter());
+			$form->setData($request->getPost());
+	
+			if ($form->isValid()) {
+				$note->exchangeArray($form->getData());
+				$this->getNoteTable()->saveNote($client);
+	
+				// Redirect to list of albums
+				return $this->redirect()->toRoute('afficheclient');
+			}
+		}
+		return array('form' => $form);
 	}
 	
 	public function getClientTable()

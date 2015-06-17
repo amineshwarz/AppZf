@@ -1,0 +1,36 @@
+<?php
+$title = 'Fiche du Client : '.$this->nom;
+$this->headTitle($title);
+?>
+
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+  		<div class="modal-header">
+  		<p style="float: right;">
+  		<a href="<?php  echo $this->url('crm',array('action'=>'edit', 'id' => $this->id));?>"type="button" class="button">Modifier</a>
+				<a href="<?php  echo $this->url('crm',array('action'=>'ajoutnote', 'id_note' => $this->id_note));?>" type="button" class="button">note</a>
+				<a href="<?php  echo $this->url('crm',array('action'=>'#', 'id' => $this->id));?>" type="button" class="button">tache</a> 
+				<a href="<?php  echo $this->url('crm',array('action'=>'delete', 'id' => $this->id));?>" type="button" class="button">Supprimer</a>
+  		</p><br><br>
+
+  			<h4 class="modal-title">
+					<center> <?php echo $this->escapeHtml($title); ?> </center>
+				</h4>
+			</div>
+			<div class="modal-body">
+ 				<?php
+
+					echo '<h4>Le nom du Client est : '. $this->nom."</h4>";
+					echo '<h5>prenom du Client : '.$this->prenom."</h5>";
+					echo '<p> Email : '.$this->email."</p>";
+					echo '<p> Societe : '.$this->societe."</p>";
+					echo '<p> Telephone : '.$this->telephone."</p>";
+				?>
+			</div>
+			<div class="modal-footer">
+				<a href="<?php  echo $this->url('crm',array('action'=>'index', 'id' => $this->id));?>" class="btn btn-primary">Retour</a>
+			</div>
+		</div>
+</div>

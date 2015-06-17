@@ -1,18 +1,17 @@
 <?php
-$title = "Suprimer l'album";
+$title = 'Supprimer Music '.$this->escapeHtml($album->title);
 $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 
-<p>voulez vous supprimer l'album ?
-	'<?php echo $this->escapeHtml($album->title); ?>' de
+<p>Voulez-vous Supprimer cette music ? 
+	'<?php echo $this->escapeHtml($album->title); ?>' by
 	'<?php echo $this->escapeHtml($album->artist); ?>'?
+	
+	toute les photo Associer a ce album vont supprimer aussi.
 </p>
 <?php
-$url = $this->url('album', array(
-	'action' => 'delete',
-	'id' => $this->id,
-		));
+$url = $this->url('album', array('action' => 'supmusic','id' => $this->id,));
 ?>
 <form action="<?php echo $url; ?>" method="post">
 	<div>
@@ -21,4 +20,3 @@ $url = $this->url('album', array(
 		<input type="submit" name="del" value="No" />
 	</div>
 </form>
-

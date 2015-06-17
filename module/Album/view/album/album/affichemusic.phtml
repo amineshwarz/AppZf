@@ -1,0 +1,31 @@
+<?php
+$title = 'Information sur la chanson : '.$this->title;
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+
+<div style="float:right;">
+		<a href="<?php echo $this->url('album',array('action'=>'modifiermusic', 'id' => $this->id));?>">Modifier</a> 
+		<a href="<?php echo $this->url('album',array('action'=>'supmusic', 'id' => $this->id));?>" >Supprimer</a>
+</div>
+
+<?php
+
+echo '<h4>Le titre de la chanson est : '. $this->title."</h4>";
+echo '<h5>Nom d\'artist : '.$this->artist."</h5>";
+echo '<p> Description : '.$this->description."</p>";
+?>
+
+ <?php // ici liste des photo
+ $i=0;
+ foreach ($images as $image) : ?>
+<?php $i++; ?>
+<img src="/other/img/<?php echo $image->id_chanson.'-'.$image->id_img.'.JPG' ?>" height="200px" width="200px"/>
+
+ <?php endforeach; 
+ if($i == 0)
+	 Echo 'Pas de photo encore pour cette chanson :/ ';
+ 
+?>
